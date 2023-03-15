@@ -2,64 +2,53 @@ module encoder_tb;
 
    bit         clk;
    bit         rst;
-   bit         enable_i=1;
    bit         d_in;
-   wire  [1:0] d_out;
+   bit         enable_i;
    wire        valid_o;
+   wire  [1:0] d_out;
+   logic [1:0] ans[40];
+   int         case_count, good, bad; 
 
-   encoder DUT    (
+   encoder DUT   (
       .clk,
       .rst,
 	  .enable_i,
       .d_in,
-      .d_out,
-	  .valid_o   );
+	  .valid_o,
+      .d_out
+   );
 
    always begin
-      #10   clk  =  1'b1;
-      #10   clk  = 1'b0;
+      #10   clk = 1'b1;
+      #5    if(d_out==ans[case_count]) begin $displayb("yaa",,,,d_in,,,,d_out,,,ans[case_count]);
+                good++;
+			end
+	        else begin  $displayb("boo",,,,d_in,,,,d_out,,,ans[case_count]);
+			    bad++;
+			end
+      #5    clk = 1'b0;
+	        case_count++;
    end
-
+   
    initial  begin
+      $readmemb("C:\\Users\\c3gu\\Downloads\\test\\encoder_soln.txt",ans);
+      $display("din dout");
 
-      #110
-      rst   =  1'b1;
-      d_in  =  1'b0;
-      
-      #20
-      d_in  =  1'b1;
 
-      #20
-      d_in  =  1'b0;
-
-      #20
-      d_in  =  1'b0;
-
-      #20
-      d_in  =  1'b0;
-
-      #20
-      d_in  =  1'b1;
-
-      #20
-      d_in  =  1'b0;
-
-      #20
-      d_in  =  1'b0;
-
-      #20
-      d_in  =  1'b1;
-
-      #20
-      d_in  =  1'b1;
-      
-      #20
-      d_in  =  1'b0;
-      
-      #20
-      d_in  =  1'b0;
-
+      #110 rst      = 1'b1;
+	       enable_i = 1'b1;
+      #60  d_in  =  1'b1;
+      #20  d_in  =  1'b0;
+      #20  d_in  =  1'b0;
+      #20  d_in  =  1'b0;
+      #20  d_in  =  1'b1;
+      #20  d_in  =  1'b0;
+      #20  d_in  =  1'b0;
+      #20  d_in  =  1'b1;
+      #20  d_in  =  1'b1;   
+      #20  d_in  =  1'b0;    
+      #460 $display("good = %d, bad = %d",good,bad);      
       $stop;
-
+      
    end
 endmodule

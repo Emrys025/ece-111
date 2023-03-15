@@ -17,65 +17,73 @@ module encoder                    // use this one
    always_comb begin
       valid_o  =   enable_i;
       case (cstate) 
-		0:  if (d_in) 
+		0:  if (d_in) begin
 				nstate = 3'b100;
 				d_out_reg = 3;
+				end
 		    else begin
 				nstate = 3'b000;
 				d_out_reg = 0;
 			end
 
-		1:  if (d_in) 
+		1:  if (d_in) begin
 				nstate = 3'b000;
 				d_out_reg = 3;
+				end
 		    else begin
 				nstate = 3'b100;
 				d_out_reg = 0;
 			end
 
-		2:  if (d_in) 
+		2:  if (d_in) begin
 				nstate = 3'b001;
 				d_out_reg = 1;
+				end
 		    else begin
 				nstate = 3'b101;
 				d_out_reg = 2;
 			end
 			
-		3:  if (d_in) 
+		3:  if (d_in) begin
 				nstate = 3'b101;
 				d_out_reg = 1;
+				end
 		    else begin
 				nstate = 3'b001;
 				d_out_reg = 2;
 			end
 			
-		4:  if (d_in) 
+		4:  if (d_in) begin
 				nstate = 3'b110;
 				d_out_reg = 1;
+				end
 		    else begin
 				nstate = 3'b010;
 				d_out_reg = 2;
 			end
 			
-		5:  if (d_in) 
+		5:  if (d_in) begin
 				nstate = 3'b010;
 				d_out_reg = 1;
+				end
 		    else begin
 				nstate = 3'b110;
 				d_out_reg = 2;
 			end
 			
-		6:  if (d_in) 
+		6:  if (d_in) begin
 				nstate = 3'b011;
 				d_out_reg = 3;
+				end
 		    else begin
 				nstate = 3'b111;
 				d_out_reg = 0;
 			end
 			
-		7:  if (d_in) 
+		7:  if (d_in) begin
 				nstate = 3'b111;
 				d_out_reg = 3;
+				end
 		    else begin
 				nstate = 3'b011;
 				d_out_reg = 0;
